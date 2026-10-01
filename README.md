@@ -73,3 +73,7 @@ Sources/MenuBarStats/
 - `build.sh` usa `swift build --build-system native`: o build system novo do SwiftPM não inicializa só com Command Line Tools.
 - Os macros do SwiftUI (`@State`) não vêm nas Command Line Tools, então o modelo é um `let` com `@Observable`.
 - O `MenuBarExtra` não renderiza SF Symbols misturados com texto, então o rótulo é desenhado com `ImageRenderer` como imagem *template*.
+
+## Licença
+
+[MIT](LICENSE)
