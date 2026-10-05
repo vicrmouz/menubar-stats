@@ -22,7 +22,17 @@ Quem programa com agentes de IA vive de olho em duas coisas: se a máquina está
 
 As barras ficam laranja acima de 60% e vermelhas acima de 85%.
 
-## Instalação
+## Windows 10 e 11
+
+**[Baixar para Windows x64 — versão beta](https://github.com/vicrmouz/menubar-stats/releases/download/windows-v0.1.0-beta.1/MenuBarStats-windows-x64.zip)**
+
+Extraia a pasta inteira do ZIP e abra `MenuBarStats.exe`. O pacote inclui o runtime .NET e não exige instalação.
+
+A versão Windows vive em [`windows/`](windows/README.md): CPU e RAM sobre a barra de tarefas, com painel ao clicar e a estética compacta da versão macOS. O pacote portátil x64 é gerado por `./windows/build.ps1` ou pelo workflow Windows do GitHub Actions.
+
+A faixa pode ser arrastada e não reserva espaço no Explorer. A validação visual e a integração com a barra em Windows 10/11 ainda precisam ser executadas em uma máquina Windows; consulte a matriz em [`windows/README.md`](windows/README.md).
+
+## Instalação macOS
 
 Precisa de macOS 14+ e Swift 6 (as Command Line Tools bastam, o Xcode não é necessário).
 

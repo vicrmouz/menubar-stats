@@ -1,0 +1,18 @@
+<Window x:Class="MenuBarStats.Windows.StatsPanel" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:local="clr-namespace:MenuBarStats.Windows" Title="MenuBarStats" Width="300" SizeToContent="Height" WindowStyle="None" ResizeMode="NoResize" AllowsTransparency="True" Background="Transparent" ShowInTaskbar="False" Topmost="True" PreviewKeyDown="PanelKeyDown" Deactivated="PanelDeactivated">
+ <Border CornerRadius="10" Background="{DynamicResource Surface}" BorderBrush="{DynamicResource Rule}" BorderThickness="1" Padding="16"><ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled"><StackPanel>
+ <TextBlock Text="Sistema" Style="{StaticResource Heading}"/>
+ <local:MeterControl Title="CPU" Value="{Binding CpuValue}" Detail="{Binding CpuLabel}"/>
+ <local:MeterControl Title="Memória" Value="{Binding MemoryValue}" Detail="{Binding MemoryDetail}"/>
+ <local:MeterControl Title="Disco" Value="{Binding DiskValue}" Detail="{Binding DiskDetail}"/>
+ <Grid><Grid.ColumnDefinitions><ColumnDefinition/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions><TextBlock Text="Rede" FontWeight="Medium"/><TextBlock Grid.Column="1" Text="{Binding NetworkDetail}" Foreground="{DynamicResource Secondary}" FontSize="11" Typography.NumeralAlignment="Tabular"/></Grid>
+ <Border Style="{StaticResource Divider}"/>
+ <local:LimitsControl Title="Claude" Limits="{Binding Claude}"/>
+ <Border Style="{StaticResource Divider}"/>
+ <local:LimitsControl Title="Codex" Limits="{Binding Codex}"/>
+ <TextBlock Text="{Binding CodexAge}" FontSize="10" Foreground="{DynamicResource Secondary}" Margin="0,6,0,0"/>
+ <Border Style="{StaticResource Divider}"/>
+ <CheckBox x:Name="StartWithWindows" Content="Iniciar com Windows" Click="StartupClicked" Margin="0,0,0,8"/>
+ <TextBlock x:Name="SettingsError" Visibility="Collapsed" Text="Não foi possível salvar. Tente novamente." TextWrapping="Wrap" FontSize="11" Foreground="{DynamicResource Secondary}" Margin="0,0,0,8"/>
+ <Grid><Grid.ColumnDefinitions><ColumnDefinition/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions><Button Content="Atualizar Claude" Click="RefreshClicked" IsEnabled="{Binding CanRefresh}" HorizontalAlignment="Left"/><Button Grid.Column="1" Content="Sair" Click="ExitClicked"/></Grid>
+ </StackPanel></ScrollViewer></Border>
+</Window>

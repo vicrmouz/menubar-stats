@@ -1,0 +1,3 @@
+<UserControl x:Class="MenuBarStats.Windows.LimitsControl" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:local="clr-namespace:MenuBarStats.Windows">
+ <StackPanel><TextBlock x:Name="Heading" Style="{StaticResource Heading}"/><TextBlock x:Name="Empty" Text="Sem dados" Foreground="{DynamicResource Secondary}"/><StackPanel x:Name="Meters"><local:MeterControl x:Name="Session" Title="Sessão (5h)"/><local:MeterControl x:Name="Weekly" Title="Semana" Margin="0"/></StackPanel></StackPanel>
+</UserControl>
