@@ -10,6 +10,7 @@ final class StatsModel {
     private(set) var memoryUsed: UInt64 = 0
     let memoryTotal = ProcessInfo.processInfo.physicalMemory
     private(set) var diskFree: UInt64 = 0
+    private(set) var diskPurgeable: UInt64 = 0
     private(set) var diskTotal: UInt64 = 1
     private(set) var downloadRate: Double = 0   // bytes/s
     private(set) var uploadRate: Double = 0
@@ -40,7 +41,7 @@ final class StatsModel {
             lastTicks = ticks
         }
         if let used = SystemReaders.memoryUsed() { memoryUsed = used }
-        if let disk = SystemReaders.disk() { (diskFree, diskTotal) = disk }
+        if let disk = SystemReaders.disk() { (diskFree, diskPurgeable, diskTotal) = disk }
         if let net = SystemReaders.networkBytes() {
             let now = Date()
             if let last = lastNet, net.received >= last.received, net.sent >= last.sent {

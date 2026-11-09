@@ -50,13 +50,17 @@ enum SystemReaders {
         return (appPages + UInt64(stats.wire_count) + UInt64(stats.compressor_page_count)) * pageSize
     }
 
-    /// Espaço do volume de inicialização, no mesmo critério do Finder (inclui espaço purgável).
-    static func disk() -> (free: UInt64, total: UInt64)? {
-        let keys: Set<URLResourceKey> = [.volumeAvailableCapacityForImportantUsageKey, .volumeTotalCapacityKey]
+    /// Espaço do volume de inicialização: livre de fato e purgável (que o macOS libera sob demanda,
+    /// como versões otimizadas do Fotos e snapshots locais). O Finder soma os dois.
+    static func disk() -> (free: UInt64, purgeable: UInt64, total: UInt64)? {
+        let keys: Set<URLResourceKey> = [.volumeAvailableCapacityKey,
+                                         .volumeAvailableCapacityForImportantUsageKey,
+                                         .volumeTotalCapacityKey]
         guard let values = try? URL(fileURLWithPath: "/").resourceValues(forKeys: keys),
-              let free = values.volumeAvailableCapacityForImportantUsage,
+              let free = values.volumeAvailableCapacity,
               let total = values.volumeTotalCapacity else { return nil }
-        return (UInt64(free), UInt64(total))
+        let important = values.volumeAvailableCapacityForImportantUsage ?? Int64(free)
+        return (UInt64(free), UInt64(max(0, important - Int64(free))), UInt64(total))
     }
 
     /// Bytes totais recebidos/enviados em todas as interfaces físicas (exceto loopback).

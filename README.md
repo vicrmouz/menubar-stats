@@ -57,7 +57,8 @@ rm -rf ~/Applications/MenuBarStats.app
 Nada de scraping e nenhum login extra: o app só lê o que já existe na sua máquina.
 
 - **CPU / memória:** APIs Mach do kernel (`host_processor_info`, `host_statistics64`). A memória segue o mesmo critério do Monitor de Atividade: apps + residente + comprimida.
-- **Disco:** capacidade disponível do volume de inicialização, no mesmo critério do Finder.
+- **Disco:** espaço livre de fato do volume de inicialização, com o espaço purgável (que o macOS libera sob demanda, como fotos otimizadas do iCloud e snapshots locais) mostrado à parte. GB decimais, como o Finder.
+- **Memória:** usada (apps + residente + comprimida) e total em unidades binárias, como o Monitor de Atividade.
 - **Rede:** contadores de bytes das interfaces `en*` via `getifaddrs`, por diferença entre amostras.
 - **Claude:** usa o token OAuth que o **Claude Code** já guarda no Keychain e consulta o mesmo endpoint de uso do comando `/usage`. O token nunca sai da sua máquina, exceto para a própria API da Anthropic.
 - **Codex:** lê o evento `rate_limits` mais recente que o **Codex CLI** grava em `~/.codex/sessions/`.

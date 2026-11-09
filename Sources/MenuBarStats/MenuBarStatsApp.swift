@@ -51,9 +51,9 @@ struct StatsPanel: View {
             Section("Sistema") {
                 Meter(title: "CPU", value: model.cpu, detail: Format.percent(model.cpu))
                 Meter(title: "Memória", value: Double(model.memoryUsed) / Double(model.memoryTotal),
-                      detail: "\(Format.gigabytes(model.memoryUsed)) de \(Format.gigabytes(model.memoryTotal))")
+                      detail: "\(Format.memory(model.memoryUsed)) de \(Format.memory(model.memoryTotal))")
                 Meter(title: "Disco", value: 1 - Double(model.diskFree) / Double(model.diskTotal),
-                      detail: "\(Format.gigabytes(model.diskFree)) livres")
+                      detail: Format.diskDetail(free: model.diskFree, purgeable: model.diskPurgeable))
                 HStack {
                     Text("Rede").font(.subheadline.weight(.medium))
                     Spacer()
@@ -142,8 +142,19 @@ enum Format {
         "\(Int((fraction * 100).rounded()))%"
     }
 
+    /// Disco em GB decimais, como o Finder e o `df -H`.
     static func gigabytes(_ bytes: UInt64) -> String {
         String(format: "%.1f GB", Double(bytes) / 1_000_000_000)
+    }
+
+    /// RAM em unidades binárias (1 GB = 1024³ bytes), como o Monitor de Atividade.
+    static func memory(_ bytes: UInt64) -> String {
+        String(format: "%.1f GB", Double(bytes) / 1_073_741_824)
+    }
+
+    static func diskDetail(free: UInt64, purgeable: UInt64) -> String {
+        let base = "\(gigabytes(free)) livres"
+        return purgeable >= 1_000_000_000 ? "\(base) · +\(gigabytes(purgeable)) purgáveis" : base
     }
 
     static func rate(_ bytesPerSecond: Double) -> String {
